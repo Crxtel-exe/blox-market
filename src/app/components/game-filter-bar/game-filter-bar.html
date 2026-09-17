@@ -1,0 +1,36 @@
+<div class="filter-wrap">
+  <div class="filter-head">
+    <h3>Filter by game</h3>
+    <span class="hint">Click a game to see only its items</span>
+  </div>
+
+  <div class="chips" role="tablist" aria-label="Filter items by game">
+    <!-- "All" first, so the default view is never more than one click away -->
+    <button
+      type="button"
+      role="tab"
+      class="chip"
+      [class.active]="selectedGame() === 'all'"
+      [attr.aria-selected]="selectedGame() === 'all'"
+      (click)="select('all')"
+    >
+      <span class="chip-name">All</span>
+      <span class="chip-count">{{ countForGame().all }}</span>
+    </button>
+
+    @for (game of games; track game.id) {
+      <button
+        type="button"
+        role="tab"
+        class="chip"
+        [class.active]="selectedGame() === game.id"
+        [attr.aria-selected]="selectedGame() === game.id"
+        [attr.title]="game.blurb"
+        (click)="select(game.id)"
+      >
+        <span class="chip-name">{{ game.shortName }}</span>
+        <span class="chip-count">{{ countForGame()[game.id] }}</span>
+      </button>
+    }
+  </div>
+</div>

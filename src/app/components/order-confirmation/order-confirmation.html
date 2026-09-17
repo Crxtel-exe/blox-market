@@ -1,0 +1,117 @@
+<!-- ============================================================ MODAL VARIANT -->
+@if (variant() === 'modal') {
+  <div class="scrim" (click)="dismiss()"></div>
+
+  <div class="modal" role="dialog" aria-modal="true" aria-label="Order confirmed">
+    <div class="tick" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="30" height="30" fill="none">
+        <path
+          d="M5 12.5l4.5 4.5L19 7.5"
+          stroke="currentColor"
+          stroke-width="2.4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </div>
+
+    <h3>Order confirmed!</h3>
+    <p class="lead">
+      Thanks, <strong>{{ order().robloxUsername }}</strong> — your items are on the way.
+    </p>
+
+    <div class="username-box">
+      <span class="ub-label">Delivering to Roblox username</span>
+      <span class="ub-value">{{ order().robloxUsername }}</span>
+    </div>
+
+    <div class="meta">
+      <span>Order {{ order().id }}</span>
+      <span>{{ totalItems }} {{ totalItems === 1 ? 'item' : 'items' }}</span>
+    </div>
+
+    <ul class="lines">
+      @for (line of order().lines; track line.item.id) {
+        <li>
+          <span class="l-name">
+            <span class="l-qty">{{ line.quantity }}&times;</span>
+            {{ line.item.name }}
+            <span class="l-game">{{ gameName(line.item.game) }}</span>
+          </span>
+          <span class="l-price">{{ currency }}{{ lineTotal(line.item.price, line.quantity).toLocaleString() }}</span>
+        </li>
+      }
+    </ul>
+
+    <div class="grand">
+      <span>Total paid</span>
+      <span>{{ currency }}{{ order().total.toLocaleString() }}</span>
+    </div>
+
+    <button type="button" class="btn btn-primary full" (click)="dismiss()">Done</button>
+  </div>
+}
+
+<!-- =========================================================== INLINE VARIANT -->
+@if (variant() === 'inline') {
+  <div class="inline-card" role="status">
+    <div class="inline-head">
+      <div class="inline-tick" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none">
+          <path
+            d="M5 12.5l4.5 4.5L19 7.5"
+            stroke="currentColor"
+            stroke-width="2.4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+      <div>
+        <h3>Your order is confirmed</h3>
+        <p class="inline-lead">
+          We will send the items to <strong>{{ order().robloxUsername }}</strong> by in-game trade.
+        </p>
+      </div>
+    </div>
+
+    <dl class="inline-facts">
+      <div>
+        <dt>Roblox username</dt>
+        <dd class="hl">{{ order().robloxUsername }}</dd>
+      </div>
+      <div>
+        <dt>Order number</dt>
+        <dd>{{ order().id }}</dd>
+      </div>
+      <div>
+        <dt>Items</dt>
+        <dd>{{ totalItems }}</dd>
+      </div>
+      <div>
+        <dt>Total paid</dt>
+        <dd class="hl">{{ currency }}{{ order().total.toLocaleString() }}</dd>
+      </div>
+    </dl>
+
+    <div class="inline-summary">
+      <span class="sum-title">Order summary</span>
+      <ul>
+        @for (line of order().lines; track line.item.id) {
+          <li>
+            <span>
+              <span class="l-qty">{{ line.quantity }}&times;</span>
+              {{ line.item.name }}
+              <span class="l-game">{{ gameName(line.item.game) }}</span>
+            </span>
+            <span class="l-price">
+              {{ currency }}{{ lineTotal(line.item.price, line.quantity).toLocaleString() }}
+            </span>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <button type="button" class="btn btn-ghost" (click)="dismiss()">Start a new order</button>
+  </div>
+}

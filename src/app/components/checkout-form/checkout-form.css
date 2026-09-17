@@ -1,0 +1,136 @@
+:host {
+  display: block;
+}
+
+.checkout {
+  animation: rise 0.18s ease;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.co-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.co-head h4 {
+  font-size: 15px;
+}
+
+.back {
+  background: transparent;
+  border: 0;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 4px;
+  transition: color 0.15s ease;
+}
+
+.back:hover {
+  color: var(--accent-bright);
+}
+
+.co-note {
+  font-size: 12.5px;
+  color: var(--text-dim);
+  line-height: 1.5;
+  margin-bottom: 16px;
+  padding: 10px 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+/* ------------------------------------------------------------------ fields */
+
+.field {
+  margin-bottom: 14px;
+}
+
+.req,
+.optional {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 1px 7px;
+  border-radius: 999px;
+  margin-left: 4px;
+}
+
+.req {
+  background: var(--accent-dim);
+  color: var(--accent-bright);
+  border: 1px solid rgba(220, 20, 60, 0.4);
+}
+
+.optional {
+  background: var(--surface-3);
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+}
+
+/* The inline validation message. */
+.error {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--danger);
+  margin-top: 7px;
+  animation: rise 0.15s ease;
+}
+
+/* ----------------------------------------------------------------- summary */
+
+.summary {
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  margin: 18px 0 16px;
+}
+
+.sum-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13.5px;
+  color: var(--text-muted);
+  padding: 4px 0;
+}
+
+.sum-row.grand {
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.sum-row.grand span:last-child {
+  color: var(--accent-bright);
+  font-size: 19px;
+}
+
+.co-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.full {
+  width: 100%;
+}

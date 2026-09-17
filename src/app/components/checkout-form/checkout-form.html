@@ -1,0 +1,77 @@
+<div class="checkout">
+  <header class="co-head">
+    <h4>Checkout</h4>
+    <button type="button" class="back" (click)="cancel()">Back to cart</button>
+  </header>
+
+  <p class="co-note">
+    We deliver items by in-game trade, so we need the Roblox username the items should go to.
+  </p>
+
+  <!-- Roblox username: the required field -->
+  <div class="field">
+    <label for="rbx-user">Roblox username <span class="req">Required</span></label>
+    <input
+      id="rbx-user"
+      name="robloxUsername"
+      type="text"
+      autocomplete="off"
+      placeholder="e.g. AceBloxxer2013"
+      [(ngModel)]="robloxUsername"
+      (ngModelChange)="onUsernameInput()"
+      [class.is-invalid]="showUsernameError"
+      [attr.aria-invalid]="showUsernameError"
+      [attr.aria-describedby]="showUsernameError ? 'rbx-user-error' : null"
+    />
+
+    @if (showUsernameError) {
+      <p class="error" id="rbx-user-error" role="alert">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.9" />
+          <path d="M12 7.5v5.5M12 16.2v.3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
+        </svg>
+        Please enter your Roblox username to continue.
+      </p>
+    }
+  </div>
+
+  <!-- Optional extras -->
+  <div class="field">
+    <label for="co-email">Email <span class="optional">Optional</span></label>
+    <input
+      id="co-email"
+      name="email"
+      type="email"
+      autocomplete="off"
+      placeholder="For a copy of the receipt"
+      [(ngModel)]="email"
+    />
+  </div>
+
+  <div class="field">
+    <label for="co-note">Note to seller <span class="optional">Optional</span></label>
+    <textarea
+      id="co-note"
+      name="note"
+      placeholder="Anything we should know about the trade?"
+      [(ngModel)]="note"
+    ></textarea>
+  </div>
+
+  <!-- Summary -->
+  <div class="summary">
+    <div class="sum-row">
+      <span>{{ cartCount() }} {{ cartCount() === 1 ? 'item' : 'items' }}</span>
+      <span>{{ currency }}{{ cartTotal().toLocaleString() }}</span>
+    </div>
+    <div class="sum-row grand">
+      <span>Total to pay</span>
+      <span>{{ currency }}{{ cartTotal().toLocaleString() }}</span>
+    </div>
+  </div>
+
+  <div class="co-actions">
+    <button type="button" class="btn btn-primary full" (click)="confirm()">Confirm order</button>
+    <button type="button" class="btn btn-quiet full" (click)="cancel()">Cancel</button>
+  </div>
+</div>

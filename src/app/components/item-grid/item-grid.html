@@ -1,0 +1,28 @@
+<section class="grid-section">
+  <header class="grid-head">
+    <div>
+      <h2>{{ heading() }}</h2>
+      <p class="blurb">{{ blurb() }}</p>
+    </div>
+    <span class="count">
+      {{ items().length === 1 ? '1 item' : items().length + ' items' }}
+    </span>
+  </header>
+
+  @if (items().length > 0) {
+    <div class="grid">
+      @for (item of items(); track item.id) {
+        <app-item-card [item]="item" />
+      }
+    </div>
+  } @else {
+    <!-- Only reachable if a game genuinely has no stock left -->
+    <div class="empty">
+      <p class="empty-title">Nothing here yet</p>
+      <p class="empty-text">
+        There are no items listed for this game right now. Try another game, or add one yourself.
+      </p>
+      <button type="button" class="btn btn-ghost" (click)="showAll()">Show all items</button>
+    </div>
+  }
+</section>

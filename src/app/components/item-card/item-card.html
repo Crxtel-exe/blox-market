@@ -1,0 +1,43 @@
+<article class="card" [class.account]="accountItem()">
+  @if (item().image) {
+    <div class="item-image">
+      <img [src]="item().image" [alt]="item().name" loading="lazy" />
+    </div>
+  } @else {
+    <div class="item-image item-image-empty" aria-hidden="true">NO IMAGE</div>
+  }
+
+  <!-- Tags across the top -->
+  <div class="card-top">
+    <span class="tag tag-accent">{{ gameName() }}</span>
+    <span class="tag">{{ item().category }}</span>
+  </div>
+
+  <h4 class="name">{{ item().name }}</h4>
+  <p class="desc">{{ item().description }}</p>
+
+  <!-- Price + add button -->
+  <div class="card-foot">
+    <div class="price">
+      <span class="amount">{{ currency }}{{ item().price.toLocaleString() }}</span>
+      @if (inCart() > 0) {
+        <span class="in-cart">{{ inCart() }} in cart</span>
+      }
+    </div>
+
+    <button type="button" class="btn btn-primary add" (click)="addToCart()">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" aria-hidden="true">
+        <path
+          d="M3 4h2.2l1.9 10.4a1.6 1.6 0 001.6 1.3h7.9a1.6 1.6 0 001.6-1.3L20 7H6"
+          stroke="currentColor"
+          stroke-width="1.9"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <circle cx="9.5" cy="19.5" r="1.4" fill="currentColor" />
+        <circle cx="17" cy="19.5" r="1.4" fill="currentColor" />
+      </svg>
+      Add
+    </button>
+  </div>
+</article>

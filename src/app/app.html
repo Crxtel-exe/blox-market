@@ -1,0 +1,124 @@
+<app-header
+  (openCart)="openCart()"
+  (navigateTo)="scrollTo($event)"
+/>
+
+<main class="page">
+  <!-- ============================================================== HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <span class="eyebrow">Roblox in-game items &amp; accounts</span>
+      <h1>Buy the items you actually want,<br /><span class="hl">without the grind.</span></h1>
+      <p class="hero-sub">
+        Game passes, weapons, fruits, rods, pets and currency for AOTR, Blox Fruit, Fisch and MM2
+        &mdash; plus ready-made Roblox accounts. Every price is in Philippine Pesos.
+      </p>
+
+      <div class="hero-actions">
+        <button type="button" class="btn btn-primary" (click)="scrollTo('shop')">
+          Browse the shop
+        </button>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <strong>{{ games.length }}</strong>
+          <span>Games stocked</span>
+        </div>
+        <div class="stat">
+          <strong>Philippine Pesos</strong>
+          <span>Single currency</span>
+        </div>
+        <div class="stat">
+          <strong>In-game trade</strong>
+          <span>Delivery method</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="hc-head">
+        <span class="hc-dot"></span>
+        <span>How delivery works</span>
+      </div>
+      <ol class="hc-list">
+        <li>Pick the items you want and add them to the cart.</li>
+        <li>Enter your Roblox username at checkout.</li>
+        <li>We send the items to that username by in-game trade.</li>
+      </ol>
+      <p class="hc-note">
+        Make sure the username is spelled right &mdash; we cannot deliver to the wrong one.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================ GAMES -->
+  <section class="games-strip" #gamesAnchor>
+    <h2>Four games, one shop</h2>
+    <div class="game-cards">
+      @for (game of games; track game.id) {
+        <button type="button" class="game-card" (click)="selectGame(game.id)">
+          <span class="gc-name">{{ game.name }}</span>
+          <span class="gc-blurb">{{ game.blurb }}</span>
+          <span class="gc-go">Shop {{ game.shortName }} &rarr;</span>
+        </button>
+      }
+    </div>
+  </section>
+
+  <!-- ============================================================= SHOP -->
+  <section class="shop" #shopAnchor>
+    <app-game-filter-bar />
+
+    <!-- Order confirmation also sits inline, under the shop / order area -->
+    @if (lastOrder(); as order) {
+      <app-order-confirmation [order]="order" variant="inline" (dismissed)="dismissInlineOrder()" />
+    }
+
+    <app-item-grid />
+  </section>
+
+  <!-- ============================================================== HOW -->
+  <section class="how" #howAnchor>
+    <h2>How it works</h2>
+    <div class="how-grid">
+      <article class="how-card">
+        <span class="how-num">1</span>
+        <h3>Pick your items</h3>
+        <p>
+          Filter by game to find what you are after, then add it to the cart. Everything is priced
+          in Philippine Pesos, and the total updates as you go.
+        </p>
+      </article>
+      <article class="how-card">
+        <span class="how-num">2</span>
+        <h3>Enter your username</h3>
+        <p>
+          At checkout we ask for your Roblox username. It is required, because that is the account
+          we send the items to.
+        </p>
+      </article>
+      <article class="how-card">
+        <span class="how-num">3</span>
+        <h3>Confirm and receive</h3>
+        <p>
+          Confirm the order and you get a summary straight away, both as a pop-up and under the
+          shop. We deliver by in-game trade.
+        </p>
+      </article>
+    </div>
+
+    
+  </section>
+</main>
+
+
+
+<!-- ======================================================== overlays -->
+
+@if (cartOpen()) {
+  <app-cart (close)="closeCart()" (orderPlaced)="onOrderPlaced()" />
+}
+@if (showConfirmationModal() && lastOrder(); as order) {
+  <app-order-confirmation [order]="order" variant="modal" (dismissed)="dismissModal()" />
+}

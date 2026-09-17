@@ -1,0 +1,116 @@
+<!-- Dark backdrop. Clicking it closes the cart. -->
+<div class="scrim" (click)="close.emit()"></div>
+
+<aside class="drawer" role="dialog" aria-label="Shopping cart">
+  <header class="drawer-head">
+    <div>
+      <h3>Your cart</h3>
+      <p class="sub">
+        {{ cartCount() }} {{ cartCount() === 1 ? 'item' : 'items' }} · {{ currency
+        }}{{ cartTotal().toLocaleString() }}
+      </p>
+    </div>
+    <button type="button" class="icon-btn" (click)="close.emit()" aria-label="Close cart">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+        <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+      </svg>
+    </button>
+  </header>
+
+  <div class="drawer-body">
+    @if (!isCartEmpty()) {
+      <!-- ------------------------------------------------------- line items -->
+      <ul class="lines">
+        @for (line of cartLines(); track line.item.id) {
+          <li class="line">
+            <div class="line-main">
+              <div class="line-text">
+                <span class="line-game">{{ gameName(line.item.game) }}</span>
+                <span class="line-name">{{ line.item.name }}</span>
+                <span class="line-unit">{{ currency }}{{ line.item.price.toLocaleString() }} each</span>
+              </div>
+              <button
+                type="button"
+                class="remove"
+                (click)="remove(line.item.id)"
+                [attr.aria-label]="'Remove ' + line.item.name"
+              >
+                Remove
+              </button>
+            </div>
+
+            <div class="line-foot">
+              <div class="qty">
+                <button
+                  type="button"
+                  class="qty-btn"
+                  (click)="decrease(line.item.id, line.quantity)"
+                  aria-label="Decrease quantity"
+                >
+                  &minus;
+                </button>
+                <span class="qty-val">{{ line.quantity }}</span>
+                <button
+                  type="button"
+                  class="qty-btn"
+                  (click)="increase(line.item.id, line.quantity)"
+                  aria-label="Increase quantity"
+                >
+                  +
+                </button>
+              </div>
+              <span class="line-total">{{ currency }}{{ lineTotal(line.item.price, line.quantity).toLocaleString() }}</span>
+            </div>
+          </li>
+        }
+      </ul>
+
+      <!-- --------------------------------------------------------- checkout -->
+      @if (showingCheckout) {
+        <app-checkout-form (placed)="onOrderPlaced($event)" (cancelled)="cancelCheckout()" />
+      } @else {
+        <div class="totals">
+          <div class="row">
+            <span>Subtotal</span>
+            <span>{{ currency }}{{ cartTotal().toLocaleString() }}</span>
+          </div>
+          <div class="row">
+            <span>Delivery</span>
+            <span class="free">In-game trade</span>
+          </div>
+          <div class="row grand">
+            <span>Total</span>
+            <span>{{ currency }}{{ cartTotal().toLocaleString() }}</span>
+          </div>
+        </div>
+
+        <div class="drawer-actions">
+          <button type="button" class="btn btn-primary full" (click)="openCheckout()">
+            Proceed to checkout
+          </button>
+          <button type="button" class="btn btn-quiet full" (click)="clearAll()">Clear cart</button>
+        </div>
+      }
+    } @else {
+      <!-- ------------------------------------------------------- empty state -->
+      <div class="empty">
+        <div class="empty-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none">
+            <path
+              d="M3 4h2.2l1.9 10.4a1.6 1.6 0 001.6 1.3h7.9a1.6 1.6 0 001.6-1.3L20 7H6"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <circle cx="9.5" cy="19.5" r="1.4" fill="currentColor" />
+            <circle cx="17" cy="19.5" r="1.4" fill="currentColor" />
+          </svg>
+        </div>
+        <p class="empty-title">Your cart is empty</p>
+        <p class="empty-text">Add a few items and they will show up here.</p>
+        <button type="button" class="btn btn-ghost" (click)="close.emit()">Browse items</button>
+      </div>
+    }
+  </div>
+</aside>

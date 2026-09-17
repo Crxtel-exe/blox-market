@@ -1,0 +1,48 @@
+<header class="bar">
+  <div class="bar-inner">
+    <!-- Brand -->
+    <a class="brand" (click)="go('shop')" role="button" tabindex="0">
+      @if (shopLogo) {
+        <img class="brand-logo" [src]="shopLogo" [alt]="shopName + ' logo'" />
+      } @else {
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
+            <path d="M4 8l8-5 8 5v8l-8 5-8-5V8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+            <path d="M12 3v18M4 8l8 5 8-5" stroke="currentColor" stroke-width="1.8" />
+          </svg>
+        </span>
+      }
+      <span class="brand-text">
+        <strong>{{ shopName }}</strong>
+        <small>{{ shopTagline }}</small>
+      </span>
+    </a>
+
+    <!-- Nav -->
+    <nav class="nav">
+      <button type="button" class="nav-link" (click)="go('shop')">Shop</button>
+      <button type="button" class="nav-link" (click)="go('games')">Games</button>
+      <button type="button" class="nav-link" (click)="go('how')">How it works</button>
+    </nav>
+    <!-- Actions -->
+    <div class="actions">
+      <button type="button" class="btn btn-primary cart-btn" (click)="openCart.emit()">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
+          <path
+            d="M3 4h2.2l1.9 10.4a1.6 1.6 0 001.6 1.3h7.9a1.6 1.6 0 001.6-1.3L20 7H6"
+            stroke="currentColor"
+            stroke-width="1.9"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <circle cx="9.5" cy="19.5" r="1.4" fill="currentColor" />
+          <circle cx="17" cy="19.5" r="1.4" fill="currentColor" />
+        </svg>
+        <span>Cart</span>
+        @if (cartCount() > 0) {
+          <span class="count">{{ cartCount() }}</span>
+        }
+      </button>
+    </div>
+  </div>
+</header>
