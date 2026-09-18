@@ -103,7 +103,7 @@ export const SEED_ITEMS: ShopItem[] = [
     description: 'An super rare cosmetic that gives you angel wings. It is a super rare that you can only get it at 0.05% chance.',
   },
     {
-    id: 'aotr-5',
+    id: 'aotr-6',
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ08WTqCkCDpW-gyZatVmRioVJ4E5wTucBZIt4QReLujA&s=10',
     name: 'Susanoo Wings',
     game: 'aotr',
@@ -112,7 +112,7 @@ export const SEED_ITEMS: ShopItem[] = [
     description: 'An super rare cosmetic that gives you Susanoo wings. It is a super rare that you can only get it at a low chance.',
   },
     {
-    id: 'aotr-5',
+    id: 'aotr-7',
     image: 'https://aotrevolution.com/originals/webp/Skip%20Roll.webp',
     name: 'Skip Roll',
     game: 'aotr',
@@ -121,7 +121,7 @@ export const SEED_ITEMS: ShopItem[] = [
     description: 'The gamepass that will let you skip the rolling animation when you roll for a family',
   },
       {
-    id: 'aotr-5',
+    id: 'aotr-8',
     image: 'https://aotrevolution.com/originals/webp/Loadouts.webp',
     name: 'Loadout',
     game: 'aotr',
@@ -130,7 +130,7 @@ export const SEED_ITEMS: ShopItem[] = [
     description: 'The gamepass that will let you switch loadouts wothout having to re unlock the skill tree',
   },
     {
-    id: 'aotr-5',
+    id: 'aotr-9',
     image: 'https://aotrevolution.com/originals/webp/helos-2f431bbd56e217e1bc969f3621d35518.webp',
     name: 'Helos',
     game: 'aotr',
@@ -139,7 +139,7 @@ export const SEED_ITEMS: ShopItem[] = [
     description: 'A family that is known for its high damage and mobility. It is a very rare family that you can only get it at a low chance.',
   },
       {
-    id: 'aotr-5',
+    id: 'aotr-10',
     image: 'https://aotrevolution.com/originals/webp/fritz-2f3054a6c17f4abcd10d76cb9609e7a0.webp',
     name: 'Fritz',
     game: 'aotr',
